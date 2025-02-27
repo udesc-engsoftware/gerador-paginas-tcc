@@ -45,7 +45,6 @@ public class GeradorPaginas {
             String linhaTemplate;
 
             while ((linhaTemplate = bufferedReader.readLine()) != null) {
-
                 linhaTemplate = linhaTemplate.replace("$titulo$", dadosPlanilha[1].trim())
                                              .replace("$nome$", dadosPlanilha[0].trim())
                                              .replace("$area$", dadosPlanilha[4].trim())
