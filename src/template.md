@@ -20,6 +20,8 @@ header:
 
 #### Local: $local$
 
+#### Semestre: $semestre$
+
 #### Banca Examinadora:
 
 #### Orientador(a): $orientador$
