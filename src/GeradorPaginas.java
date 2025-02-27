@@ -45,11 +45,8 @@ public class GeradorPaginas {
             String linhaTemplate;
 
             while ((linhaTemplate = bufferedReader.readLine()) != null) {
-                String tituloFormatado = dadosPlanilha[1].toLowerCase().replaceAll("/[u0300-\u036f]/g", "")
-                        .replaceAll("/[^a-z0-9]+/g", "-")
-                        .replaceAll("/^-+|-+$/g", "");
 
-                linhaTemplate = linhaTemplate.replace("$titulo$", tituloFormatado)
+                linhaTemplate = linhaTemplate.replace("$titulo$", dadosPlanilha[1].trim())
                                              .replace("$nome$", dadosPlanilha[0].trim())
                                              .replace("$area$", dadosPlanilha[4].trim())
                                              .replace("$data$", dadosPlanilha[6].trim())
@@ -75,7 +72,7 @@ public class GeradorPaginas {
     private static void salvarPaginaMd (String nomeArquivo, String conteudoTemplate) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(nomeArquivo))) {
             bw.write(conteudoTemplate);
-            System.out.println("Página criado com sucesso: " + nomeArquivo);
+            System.out.println("Página criada com sucesso: " + nomeArquivo);
         } catch (IOException e) {
             System.out.println("Erro ao salvar a página: " + nomeArquivo);
             e.printStackTrace();
