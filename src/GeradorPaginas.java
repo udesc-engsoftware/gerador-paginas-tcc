@@ -6,7 +6,7 @@ import java.text.Normalizer;
 public class GeradorPaginas {
 
     public static void main(String[] args) {
-        String idTabela = "2PACX-1vT-izGBgP4rAPPe6vByXcj7t7Vnm90XW8Kjof6RnJsDa1GTwF06VR6IZZk3I-L2ZLm9143nwSlik1NX";
+        String idTabela = "2PACX-1vQD0IhjB59-yrW57UH1IQZnhzHfA5VK2kyWdloQGPgGeaeC8KCdgQKMigJ8dVRMZExiTEr4v-CulYG-";
         String arquivoCsv = "https://docs.google.com/spreadsheets/d/e/" + idTabela + "/pub?output=csv";
         String template = "C:\\Users\\warml\\OneDrive\\Documentos\\GitHub\\GeradorPaginasMD\\src\\template.md";
 
