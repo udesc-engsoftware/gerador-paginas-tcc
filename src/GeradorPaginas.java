@@ -42,7 +42,10 @@ public class GeradorPaginas {
 
     private static String gerarNomeArquivo (String semestre, String aluno) {
         String semestreFormatado = semestre.replace("/", "-").replace(" ", "-");
-        String nomeFormatado = Normalizer.normalize(aluno.toLowerCase(), Normalizer.Form.NFD).replaceAll("[^a-z0-9\\s-]", "").trim().replace(" ", "-");
+        String nomeFormatado = Normalizer.normalize(aluno.toLowerCase(), Normalizer.Form.NFD)
+                .replaceAll("[^a-z0-9\\s-]", "")
+                .trim()
+                .replace(" ", "-");
 
         return semestreFormatado + "-" + nomeFormatado + ".md";
     }
