@@ -1,22 +1,30 @@
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 
 public class GeradorPaginas {
 
     public static void main(String[] args) {
-        String arquivoCsv = "C:\\Users\\warml\\OneDrive\\Documentos\\tccs.csv";
+        String idTabela = "2PACX-1vT-izGBgP4rAPPe6vByXcj7t7Vnm90XW8Kjof6RnJsDa1GTwF06VR6IZZk3I-L2ZLm9143nwSlik1NX";
+        String arquivoCsv = "https://docs.google.com/spreadsheets/d/e/" + idTabela + "/pub?output=csv";
         String template = "C:\\Users\\warml\\OneDrive\\Documentos\\GitHub\\GeradorPaginasMD\\src\\template.md";
 
         lerCsv(arquivoCsv, template);
     }
 
     private static void lerCsv (String arquivoCsv, String template) {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(arquivoCsv), StandardCharsets.UTF_8))){
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL(arquivoCsv).openStream()))){
             br.readLine();
             String linhaTcc;
 
             while ((linhaTcc = br.readLine()) != null) {
-                String[] dadosPlanilha = linhaTcc.split(",");
+                String[] dadosPlanilha = linhaTcc.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+
+                for (int i = 0; i < dadosPlanilha.length; i++) {
+                    dadosPlanilha[i] = dadosPlanilha[i].replaceAll("^\"|\"$", "").trim();
+                }
+
                 String nomeArquivo = gerarNomeArquivo(dadosPlanilha[5], dadosPlanilha[0]);
                 String templateArquivo = gerarArquivoTemplate(template, dadosPlanilha);
 
@@ -33,9 +41,10 @@ public class GeradorPaginas {
     }
 
     private static String gerarNomeArquivo (String semestre, String aluno) {
-       String semestreFormatado = semestre.replace("/", "-").replace(" ", "-");
-       String nomeFormatado = aluno.toLowerCase().replaceAll("[^a-z0-9\\s-]", "").trim().replace(" ", "-");
-       return semestreFormatado + "-" + nomeFormatado + ".md";
+        String semestreFormatado = semestre.replace("/", "-").replace(" ", "-");
+        String nomeFormatado = Normalizer.normalize(aluno.toLowerCase(), Normalizer.Form.NFD).replaceAll("[^a-z0-9\\s-]", "").trim().replace(" ", "-");
+
+        return semestreFormatado + "-" + nomeFormatado + ".md";
     }
 
     private static String gerarArquivoTemplate (String template, String[] dadosPlanilha) {
