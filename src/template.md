@@ -9,24 +9,24 @@ header:
 permalink: ""
 ---
 
-## $titulo$
-
-#### Aluno(a): $nome$
-
-#### Área: $area$
-
-#### Data: $data$
-
-#### Hora: $hora$
-
-#### Local: $local$
-
-#### Semestre: $semestre$
-
-#### Banca Examinadora:
-
-#### Orientador(a): $orientador$
-
-#### Membros: $membros$
-
-#### Link Repositório Institucional UDESC: $linkTcc$
+#### **$titulo$**
+<br>
+**Aluno(a):** $nome$
+<br>
+**Área:** $area$
+<br>
+**Data:** $data$
+<br>
+**Hora:** $hora$
+<br>
+**Local:** $local$
+<br>
+**Semestre:** $semestre$
+<br>
+**Banca Examinadora:**
+<br>
+**Orientador(a):** $orientador$
+<br>
+**Membros:** $membros$
+<br>
+**Link Repositório Institucional UDESC:** $linkTcc$
