@@ -8,7 +8,7 @@ public class GeradorPaginas {
     public static void main(String[] args) {
         String idTabela = "2PACX-1vQD0IhjB59-yrW57UH1IQZnhzHfA5VK2kyWdloQGPgGeaeC8KCdgQKMigJ8dVRMZExiTEr4v-CulYG-";
         String arquivoCsv = "https://docs.google.com/spreadsheets/d/e/" + idTabela + "/pub?output=csv";
-        String template = "C:\\Users\\warml\\OneDrive\\Documentos\\GitHub\\GeradorPaginasMD\\src\\template.md";
+        String template = "C:\\Users\\09644564944.CORP\\OneDrive - UDESC Universidade do Estado de Santa Catarina\\Documentos\\GitHub\\GeradorPaginasMD\\src\\template.md";
 
         lerCsv(arquivoCsv, template);
     }
@@ -65,7 +65,8 @@ public class GeradorPaginas {
                                              .replace("$local$", dadosPlanilha[8].trim())
                                              .replace("$semestre$", dadosPlanilha[5].trim())
                                              .replace("$orientador$", dadosPlanilha[2].trim())
-                                             .replace("$membros$", dadosPlanilha[3].trim());
+                                             .replace("$membros$", dadosPlanilha[3].trim())
+                                             .replace("$linkTcc$", dadosPlanilha[9].trim());
 
                 sb.append(linhaTemplate).append("\n");
             }
