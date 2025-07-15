@@ -2,18 +2,31 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class GeradorPaginas {
+    private static final String PERMALINK_BASE = "/banca-tcc/tccs/";
 
     public static void main(String[] args) {
+        if (args.length < 1){
+            System.out.println("Argumentos em falta. Utilize no terminal: java GeradorPaginas <arquivo de template.md> <diretorio onde gerar paginas>");
+            System.exit(1);
+        }
         String idTabela = "2PACX-1vQD0IhjB59-yrW57UH1IQZnhzHfA5VK2kyWdloQGPgGeaeC8KCdgQKMigJ8dVRMZExiTEr4v-CulYG-";
         String arquivoCsv = "https://docs.google.com/spreadsheets/d/e/" + idTabela + "/pub?output=csv";
-        String template = "C:\\Users\\warml\\OneDrive\\Documentos\\GitHub\\GeradorPaginasMD\\src\\template.md";
+        String template = args[0];
+        String destinoDir = args[1];
 
-        lerCsv(arquivoCsv, template);
+        if (! Files.exists(Paths.get(destinoDir))){
+            System.out.println("Diretorio de destino nao encontrado. Utilize no terminal: java GeradorPaginas <arquivo de template.md> <diretorio onde gerar paginas>");
+            System.exit(1);
+        }
+
+        lerCsv(arquivoCsv, template, destinoDir);
     }
 
-    private static void lerCsv (String arquivoCsv, String template) {
+    private static void lerCsv (String arquivoCsv, String template, String destinoDir) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new URL(arquivoCsv).openStream()))){
             br.readLine();
             String linhaTcc;
@@ -26,9 +39,10 @@ public class GeradorPaginas {
                 }
 
                 String nomeArquivo = gerarNomeArquivo(dadosPlanilha[5], dadosPlanilha[0]);
-                String templateArquivo = gerarArquivoTemplate(template, dadosPlanilha);
+                String permaLink = PERMALINK_BASE + (nomeArquivo.replace(".md", ""))+"/";
+                String templateArquivo = gerarArquivoTemplate(template, permaLink, dadosPlanilha);
 
-                salvarPaginaMd(nomeArquivo, templateArquivo);
+                salvarPaginaMd(destinoDir+File.separator+nomeArquivo, templateArquivo);
             }
 
         } catch (FileNotFoundException e) {
@@ -50,7 +64,7 @@ public class GeradorPaginas {
         return semestreFormatado + "-" + nomeFormatado + ".md";
     }
 
-    private static String gerarArquivoTemplate (String template, String[] dadosPlanilha) {
+    private static String gerarArquivoTemplate (String template, String permalink, String[] dadosPlanilha) {
         StringBuilder sb = new StringBuilder();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(template))) {
@@ -66,7 +80,8 @@ public class GeradorPaginas {
                                              .replace("$semestre$", dadosPlanilha[5].trim())
                                              .replace("$orientador$", dadosPlanilha[2].trim())
                                              .replace("$membros$", dadosPlanilha[3].trim())
-                                             .replace("$linkTcc$", dadosPlanilha[9].trim());
+                                             .replace("$linkTcc$", dadosPlanilha[9].trim())
+                                             .replace("$permalink", permalink );
 
                 sb.append(linhaTemplate).append("\n");
             }

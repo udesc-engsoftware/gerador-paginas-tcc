@@ -6,7 +6,7 @@ subheadline: ""
 teaser: ""
 header:
    image_fullwidth: "banner-site-eso.png"
-permalink: ""
+permalink: "$permalink"
 ---
 
 #### **$titulo$**
