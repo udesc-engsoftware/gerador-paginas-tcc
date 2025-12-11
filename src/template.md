@@ -29,4 +29,4 @@ permalink: "$permalink"
 <br>
 **Membros:** $membros$
 <br>
-**Link Repositório Institucional UDESC:** $linkTcc$
+**Link Repositório Institucional UDESC:** [$linkTcc$]($linkTcc$)
